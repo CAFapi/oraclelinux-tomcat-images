@@ -22,13 +22,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.cafapi</groupId>
-    <artifactId>oraclelinux-tomcat-jre21-image-aggregator</artifactId>
+    <artifactId>oraclelinux-tomcat-images-aggregator</artifactId>
     <version>2.2.9-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>Oracle Linux Tomcat JRE 21 image Aggregator</name>
+    <name>Oracle Linux Tomcat images Aggregator</name>
     <description>A base image for building a Web project.</description>
-    <url>https://github.com/CAFapi/oraclelinux-tomcat-jre21-image</url>
+    <url>https://github.com/CAFapi/oraclelinux-tomcat-images</url>
 
     <inceptionYear>2025</inceptionYear>
 
@@ -60,8 +60,8 @@
 
     <modules>
         <module>caf-logging-tomcat-juli</module>
-        <module>oraclelinux-tomcat-jre21-juli-image</module>
-        <module>oraclelinux-tomcat-jre21-image</module>
+        <module>oraclelinux-tomcat-juli-images</module>
+        <module>oraclelinux-tomcat-images</module>
     </modules>
 
     <properties>
@@ -71,7 +71,6 @@
         <dockerHubOrganization>cafapi</dockerHubOrganization>
         <dockerCafImagePrefix>${dockerImagePrefix}${dockerHubOrganization}${dockerOrgSeperator}</dockerCafImagePrefix>
         <dockerProjectVersion>${dockerVersionSeperator}${project.version}</dockerProjectVersion>
-        <projectDockerRegistry>oraclelinux-tomcat-jre21-image-${project.version}.project-registries.local</projectDockerRegistry>
     </properties>
 
     <dependencyManagement>
@@ -165,17 +164,17 @@
                 <plugin>
                     <groupId>com.github.cafapi.plugins.docker.versions</groupId>
                     <artifactId>docker-versions-maven-plugin</artifactId>
-                    <version>1.0.0-29</version>
+                    <version>2.0.1-64</version>
                 </plugin>
                 <plugin>
                     <groupId>io.fabric8</groupId>
                     <artifactId>docker-maven-plugin</artifactId>
-                    <version>0.45.1</version>
+                    <version>0.48.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-shade-plugin</artifactId>
-                    <version>3.6.0</version>
+                    <version>3.6.2</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -185,11 +184,17 @@
                 <artifactId>docker-versions-maven-plugin</artifactId>
                 <extensions>true</extensions>
                 <configuration>
+                    <projectDockerRegistry>oraclelinux-tomcat-images-${project.version}.project-registries.local</projectDockerRegistry>
                     <imageManagement>
                         <image>
-                            <repository>${dockerHubPublic}/cafapi/oraclelinux-jre21</repository>
-                            <tag>2.1.9</tag>
-                            <digest>sha256:ad5e46626902502ae5e49ea5d39d81afeba7ba89939defde804c64c40163cff3</digest>
+                            <targetRepository>cafapi/oraclelinux-jre21</targetRepository>
+                            <repository>${dockerHubPublic}/cafapi/prereleases</repository>
+                            <tag>oraclelinux-jre21-2.2.0-SNAPSHOT</tag>
+                        </image>
+                        <image>
+                            <targetRepository>cafapi/oraclelinux-jre25</targetRepository>
+                            <repository>${dockerHubPublic}/cafapi/prereleases</repository>
+                            <tag>oraclelinux-jre25-2.2.0-SNAPSHOT</tag>
                         </image>
                         <image>
                             <repository>${dockerHubPublic}/library/oraclelinux</repository>
@@ -211,9 +216,9 @@
     </build>
 
     <scm>
-        <connection>scm:git:https://github.com/CAFapi/oraclelinux-tomcat-jre21-image.git</connection>
-        <developerConnection>scm:git:https://github.com/CAFapi/oraclelinux-tomcat-jre21-image.git</developerConnection>
-        <url>https://github.com/CAFapi/oraclelinux-tomcat-jre21-image</url>
+        <connection>scm:git:https://github.com/CAFapi/oraclelinux-tomcat-images.git</connection>
+        <developerConnection>scm:git:https://github.com/CAFapi/oraclelinux-tomcat-images.git</developerConnection>
+        <url>https://github.com/CAFapi/oraclelinux-tomcat-images</url>
     </scm>
 
 </project>
