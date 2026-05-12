@@ -65,8 +65,7 @@
                             <goal>push</goal>
                         </goals>
                         <configuration>
-                            <filter>oraclelinux-tomcat-juli-jre21</filter>
-                            <filter>oraclelinux-tomcat-juli-jre25</filter>
+                            <filter>oraclelinux-tomcat-juli-jre21,oraclelinux-tomcat-juli-jre25</filter>
                         </configuration>
                     </execution>
                 </executions>

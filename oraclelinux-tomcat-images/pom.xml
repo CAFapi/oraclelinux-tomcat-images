@@ -101,9 +101,8 @@
                         <goals>
                             <goal>push</goal>
                         </goals>
-                         <configuration>
-                            <filter>oraclelinux-tomcat-jre21</filter>
-                            <filter>oraclelinux-tomcat-jre25</filter>
+                        <configuration>
+                            <filter>oraclelinux-tomcat-jre21,oraclelinux-tomcat-jre25</filter>
                         </configuration>
                     </execution>
                 </executions>
