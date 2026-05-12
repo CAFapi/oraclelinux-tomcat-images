@@ -1,6 +1,6 @@
-# Oracle Linux with Java 21 and Tomcat image
+# Oracle Linux with Java and Tomcat image
 
-This project builds on the Oracle Linux Java 21 image [here](https://github.com/CAFapi/oraclelinux-base-images/tree/main/oraclelinux-java21-images) to build two pre-configured Tomcat Docker images
+This project builds on the Oracle Linux Java 21 [here](https://github.com/CAFapi/oraclelinux-base-images/tree/main/oraclelinux-java21-images) and Oracle Linux Java 25 images [here](https://github.com/CAFapi/oraclelinux-base-images/tree/main/oraclelinux-java25-images to build pre-configured Tomcat Docker images
 that use two logging frameworks. One of the images uses the Logback logging framework and the other that uses Tomcat JULI logging.
 
 They can be used as base images for hosting web projects which use Java technologies such as Java Servlets or JavaServer Pages.

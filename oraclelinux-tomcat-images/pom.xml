@@ -23,14 +23,14 @@
 
     <parent>
         <groupId>com.github.cafapi</groupId>
-        <artifactId>oraclelinux-tomcat-jre21-image-aggregator</artifactId>
-        <version>2.2.9-SNAPSHOT</version>
+        <artifactId>oraclelinux-tomcat-images-aggregator</artifactId>
+        <version>2.3.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>oraclelinux-tomcat-jre21-image</artifactId>
+    <artifactId>oraclelinux-tomcat-images</artifactId>
     <packaging>pom</packaging>
 
-    <name>Oracle Linux Tomcat jre21 image</name>
+    <name>Oracle Linux Tomcat images</name>
 
     <properties>
         <maven.install.skip>true</maven.install.skip>
@@ -39,8 +39,12 @@
 
     <dependencies>
         <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-access</artifactId>
+            <groupId>ch.qos.logback.access</groupId>
+            <artifactId>logback-access-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback.access</groupId>
+            <artifactId>logback-access-tomcat</artifactId>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
@@ -97,8 +101,8 @@
                         <goals>
                             <goal>push</goal>
                         </goals>
-                         <configuration>
-                            <filter>oraclelinux-tomcat-jre21</filter>
+                        <configuration>
+                            <filter>oraclelinux-tomcat-jre21,oraclelinux-tomcat-jre25</filter>
                         </configuration>
                     </execution>
                 </executions>
@@ -108,7 +112,7 @@
                             <alias>oraclelinux-tomcat-jre21</alias>
                             <name>${dockerCafImagePrefix}oraclelinux-tomcat-jre21${dockerProjectVersion}</name>
                             <build>
-                                <dockerFileDir>.</dockerFileDir>
+                                <contextDir>.</contextDir>
                                  <assembly>
                                     <basedir>/</basedir>
                                     <inline>
@@ -121,8 +125,13 @@
                                     </inline>
                                 </assembly>
                                 <args>
+                                    <!-- Enable internet access -->
+                                    <http_proxy>${env.HTTP_PROXY}</http_proxy>
+                                    <https_proxy>${env.HTTPS_PROXY}</https_proxy>
+                                    <no_proxy>${env.NO_PROXY}</no_proxy>
                                     <!-- Pass in oraclelinux-tomcat-jre21-juli image as param -->
                                     <JULI_IMAGE>${dockerCafImagePrefix}oraclelinux-tomcat-jre21-juli${dockerProjectVersion}</JULI_IMAGE>
+                                    <JAVA_VERSION>21</JAVA_VERSION>
                                 </args>
                             </build>
                         </image>
@@ -147,12 +156,72 @@
                                     <enabled>true</enabled>
                                 </log>
                                 <ports>
-                                    <port>${tomcat.port}:8080</port>
+                                    <port>${tomcat1.port}:8080</port>
                                 </ports>
                                 <wait>
                                     <http>
                                         <method>GET</method>
-                                        <url>http://${docker.host.address}:${tomcat.port}/mywebapp/test.html</url>
+                                        <url>http://${docker.host.address}:${tomcat1.port}/mywebapp/test.html</url>
+                                    </http>
+                                    <time>120000</time>
+                                    <shutdown>500</shutdown>
+                                </wait>
+                            </run>
+                        </image>
+                        <image>
+                            <alias>oraclelinux-tomcat-jre25</alias>
+                            <name>${dockerCafImagePrefix}oraclelinux-tomcat-jre25${dockerProjectVersion}</name>
+                            <build>
+                                <contextDir>.</contextDir>
+                                 <assembly>
+                                    <basedir>/</basedir>
+                                    <inline>
+                                        <dependencySets>
+                                            <dependencySet>
+                                                <outputDirectory>/lib</outputDirectory>
+                                                <useTransitiveDependencies>false</useTransitiveDependencies>
+                                            </dependencySet>
+                                        </dependencySets>
+                                    </inline>
+                                </assembly>
+                                <args>
+                                    <!-- Enable internet access -->
+                                    <http_proxy>${env.HTTP_PROXY}</http_proxy>
+                                    <https_proxy>${env.HTTPS_PROXY}</https_proxy>
+                                    <no_proxy>${env.NO_PROXY}</no_proxy>
+                                    <!-- Pass in oraclelinux-tomcat-jre25-juli image as param -->
+                                    <JULI_IMAGE>${dockerCafImagePrefix}oraclelinux-tomcat-jre25-juli${dockerProjectVersion}</JULI_IMAGE>
+                                    <JAVA_VERSION>25</JAVA_VERSION>
+                                </args>
+                            </build>
+                        </image>
+                        <image>
+                            <name>${dockerCafImagePrefix}oraclelinux-tomcat-jre25-test${dockerProjectVersion}</name>
+                            <build>
+                                <from>${dockerCafImagePrefix}oraclelinux-tomcat-jre25${dockerProjectVersion}</from>
+                                <assembly>
+                                    <basedir>/</basedir>
+                                    <inline>
+                                        <files>
+                                            <file>
+                                                <source>src/test/resources/test.html</source>
+                                                <outputDirectory>usr/share/tomcat/webapps/mywebapp</outputDirectory>
+                                            </file>
+                                        </files>
+                                    </inline>
+                                </assembly>
+                            </build>
+                            <run>
+                                <log>
+                                    <enabled>true</enabled>
+                                </log>
+                                <ports>
+                                    <port>${tomcat2.port}:8080</port>
+                                </ports>
+                                <wait>
+                                    <http>
+                                        <method>GET</method>
+                                        <url>http://${docker.host.address}:${tomcat2.port}/mywebapp/test.html</url>
                                     </http>
                                     <time>120000</time>
                                     <shutdown>500</shutdown>
@@ -165,37 +234,4 @@
             </plugin>
         </plugins>
     </build>
-    <profiles>
-        <!-- profile for docker proxy settings -->
-        <profile>
-            <id>docker-proxy</id>
-            <activation>
-                <property>
-                    <name>env.HTTP_PROXY</name>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>io.fabric8</groupId>
-                        <artifactId>docker-maven-plugin</artifactId>
-                        <configuration>
-                            <images>
-                                <image>
-                                    <build>
-                                        <args>
-                                            <!-- Enable internet access -->
-                                            <http_proxy>${env.HTTP_PROXY}</http_proxy>
-                                            <https_proxy>${env.HTTPS_PROXY}</https_proxy>
-                                            <no_proxy>${env.NO_PROXY}</no_proxy>
-                                        </args>
-                                    </build>
-                                </image>
-                            </images>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>

@@ -18,6 +18,7 @@
 # Preliminary image, makes some modifications to the JULI image
 #
 ARG JULI_IMAGE
+ARG JAVA_VERSION
 FROM $JULI_IMAGE AS builder
 
 RUN microdnf -y install libxslt
@@ -59,7 +60,7 @@ RUN mkdir -p $WDBUILDER/usr/share && \
 #
 # The actual image definition
 #
-FROM ${projectDockerRegistry}/cafapi/oraclelinux-jre21
+FROM ${projectDockerRegistry}/cafapi/oraclelinux-jre$JAVA_VERSION
 
 RUN microdnf -y --refresh upgrade && \
     microdnf clean all

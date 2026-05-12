@@ -20,13 +20,13 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.github.cafapi</groupId>
-        <artifactId>oraclelinux-tomcat-jre21-image-aggregator</artifactId>
-        <version>2.2.9-SNAPSHOT</version>
+        <artifactId>oraclelinux-tomcat-images-aggregator</artifactId>
+        <version>2.3.0-SNAPSHOT</version>
     </parent>
-    <artifactId>oraclelinux-tomcat-jre21-juli-image</artifactId>
+    <artifactId>oraclelinux-tomcat-juli-images</artifactId>
     <packaging>pom</packaging>
     
-    <name>Oracle Linux Tomcat jre21 Juli image</name>
+    <name>Oracle Linux Tomcat Juli images</name>
     <properties>
         <maven.install.skip>true</maven.install.skip>
     </properties>
@@ -64,8 +64,8 @@
                         <goals>
                             <goal>push</goal>
                         </goals>
-                         <configuration>
-                            <filter>oraclelinux-tomcat-juli-jre21</filter>
+                        <configuration>
+                            <filter>oraclelinux-tomcat-juli-jre21,oraclelinux-tomcat-juli-jre25</filter>
                         </configuration>
                     </execution>
                 </executions>
@@ -75,7 +75,14 @@
                             <alias>oraclelinux-tomcat-juli-jre21</alias>
                             <name>${dockerCafImagePrefix}oraclelinux-tomcat-jre21-juli${dockerProjectVersion}</name>
                             <build>
-                                <dockerFileDir>.</dockerFileDir>
+                                <contextDir>.</contextDir>
+                                <args>
+                                    <!-- Enable internet access -->
+                                    <http_proxy>${env.HTTP_PROXY}</http_proxy>
+                                    <https_proxy>${env.HTTPS_PROXY}</https_proxy>
+                                    <no_proxy>${env.NO_PROXY}</no_proxy>
+                                    <JAVA_VERSION>21</JAVA_VERSION>
+                                </args>
                             </build>
                         </image>
                         <image>
@@ -99,12 +106,59 @@
                                     <enabled>true</enabled>
                                 </log>
                                 <ports>
-                                    <port>${tomcat.port}:8080</port>
+                                    <port>${tomcat1.port}:8080</port>
                                 </ports>
                                 <wait>
                                     <http>
                                         <method>GET</method>
-                                        <url>http://${docker.host.address}:${tomcat.port}/mywebapp/test.html</url>
+                                        <url>http://${docker.host.address}:${tomcat1.port}/mywebapp/test.html</url>
+                                    </http>
+                                    <time>120000</time>
+                                    <shutdown>500</shutdown>
+                                </wait>
+                            </run>
+                        </image>
+                        <image>
+                            <alias>oraclelinux-tomcat-juli-jre25</alias>
+                            <name>${dockerCafImagePrefix}oraclelinux-tomcat-jre25-juli${dockerProjectVersion}</name>
+                            <build>
+                                <contextDir>.</contextDir>
+                                <args>
+                                    <!-- Enable internet access -->
+                                    <http_proxy>${env.HTTP_PROXY}</http_proxy>
+                                    <https_proxy>${env.HTTPS_PROXY}</https_proxy>
+                                    <no_proxy>${env.NO_PROXY}</no_proxy>
+                                    <JAVA_VERSION>25</JAVA_VERSION>
+                                </args>
+                            </build>
+                        </image>
+                        <image>
+                            <name>${dockerCafImagePrefix}oraclelinux-tomcat-jre25-juli-test${dockerProjectVersion}</name>
+                            <build>
+                                <from>${dockerCafImagePrefix}oraclelinux-tomcat-jre25-juli${dockerProjectVersion}</from>
+                                <assembly>
+                                    <basedir>/</basedir>
+                                    <inline>
+                                        <files>
+                                            <file>
+                                                <source>src/test/resources/test.html</source>
+                                                <outputDirectory>usr/share/tomcat/webapps/mywebapp</outputDirectory>
+                                            </file>
+                                        </files>
+                                    </inline>
+                                </assembly>
+                            </build>
+                            <run>
+                                <log>
+                                    <enabled>true</enabled>
+                                </log>
+                                <ports>
+                                    <port>${tomcat2.port}:8080</port>
+                                </ports>
+                                <wait>
+                                    <http>
+                                        <method>GET</method>
+                                        <url>http://${docker.host.address}:${tomcat2.port}/mywebapp/test.html</url>
                                     </http>
                                     <time>120000</time>
                                     <shutdown>500</shutdown>
@@ -117,37 +171,4 @@
             </plugin>
         </plugins>
     </build>
-    <profiles>
-        <!-- profile for docker proxy settings -->
-        <profile>
-            <id>docker-proxy</id>
-            <activation>
-                <property>
-                    <name>env.HTTP_PROXY</name>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>io.fabric8</groupId>
-                        <artifactId>docker-maven-plugin</artifactId>
-                        <configuration>
-                            <images>
-                                <image>
-                                    <build>
-                                        <args>
-                                            <!-- Enable internet access -->
-                                            <http_proxy>${env.HTTP_PROXY}</http_proxy>
-                                            <https_proxy>${env.HTTPS_PROXY}</https_proxy>
-                                            <no_proxy>${env.NO_PROXY}</no_proxy>
-                                        </args>
-                                    </build>
-                                </image>
-                            </images>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>
