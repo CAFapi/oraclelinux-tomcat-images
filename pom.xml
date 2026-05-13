@@ -23,7 +23,7 @@
 
     <groupId>com.github.cafapi</groupId>
     <artifactId>oraclelinux-tomcat-images-aggregator</artifactId>
-    <version>2.3.1-SNAPSHOT</version>
+    <version>3.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Oracle Linux Tomcat images Aggregator</name>
@@ -103,7 +103,7 @@
             <dependency>
                 <groupId>com.github.cafapi</groupId>
                 <artifactId>caf-logging-tomcat-juli</artifactId>
-                <version>2.3.1-SNAPSHOT</version>
+                <version>3.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>com.github.cafapi.logging</groupId>
@@ -127,8 +127,8 @@
             </dependency>
             <dependency>
                 <groupId>com.github.tomcat-slf4j-logback</groupId>
-                <artifactId>tomcat10-slf4j-logback</artifactId>
-                <version>10.1.50</version>
+                <artifactId>tomcat11-slf4j-logback</artifactId>
+                <version>11.0.22</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>
@@ -143,7 +143,7 @@
             <dependency>
                 <groupId>org.apache.tomcat</groupId>
                 <artifactId>tomcat-juli</artifactId>
-                <version>10.1.50</version>
+                <version>11.0.22</version>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
