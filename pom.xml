@@ -192,14 +192,14 @@
                     <projectDockerRegistry>oraclelinux-tomcat-images-${project.version}.project-registries.local</projectDockerRegistry>
                     <imageManagement>
                         <image>
-                            <targetRepository>cafapi/oraclelinux-jre21</targetRepository>
-                            <repository>${dockerHubPublic}/cafapi/prereleases</repository>
-                            <tag>oraclelinux-jre21-2.2.0-SNAPSHOT</tag>
+                            <repository>${dockerHubPublic}/cafapi/oraclelinux-jre21</repository>
+                            <tag>2.2.0</tag>
+                            <digest>sha256:01f90619bf1b4b578fe6364a248da7fa87f1fda343b11ab4bd7686990a5bb892</digest>
                         </image>
                         <image>
-                            <targetRepository>cafapi/oraclelinux-jre25</targetRepository>
-                            <repository>${dockerHubPublic}/cafapi/prereleases</repository>
-                            <tag>oraclelinux-jre25-2.2.0-SNAPSHOT</tag>
+                            <repository>${dockerHubPublic}/cafapi/oraclelinux-jre25</repository>
+                            <tag>2.2.0</tag>
+                            <digest>sha256:1f1509740c512a527ef43ddab5305d16da7ca82ba9db08461d85a4c60cc9f0d4</digest>
                         </image>
                         <image>
                             <repository>${dockerHubPublic}/library/oraclelinux</repository>
