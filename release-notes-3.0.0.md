@@ -1,5 +1,3 @@
-!not-ready-for-release!
-
 #### Version Number
 ${version-number}
 
@@ -11,3 +9,4 @@ See the migration guide [here](https://tomcat.apache.org/migration-11.0.html) fo
 - US1126017: The Tomcat version has been updated to v11
 
 #### Known Issues
+- None
