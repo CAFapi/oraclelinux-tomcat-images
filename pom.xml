@@ -193,13 +193,13 @@
                     <imageManagement>
                         <image>
                             <repository>${dockerHubPublic}/cafapi/oraclelinux-jre21</repository>
-                            <tag>2.2.3</tag>
-                            <digest>sha256:f3e8d09d2fe1e3b026a5a8a1d0ce509c1b07ff809ba63443a08191fa520eca9b</digest>
+                            <tag>2.2.4</tag>
+                            <digest>sha256:3f4c942b2472d715f50fac09badaea49c70bea4b260aa51b1b9bb37308206cca</digest>
                         </image>
                         <image>
                             <repository>${dockerHubPublic}/cafapi/oraclelinux-jre25</repository>
-                            <tag>2.2.3</tag>
-                            <digest>sha256:70280b06b6ea96d450c70ca8d0a49787be38bcc6322ad3faa8d2f1d8145024f7</digest>
+                            <tag>2.2.4</tag>
+                            <digest>sha256:dd4d622d47ca70c8830764885080b6b44c3d5cf49e826701f60f8c701f342d76</digest>
                         </image>
                         <image>
                             <repository>${dockerHubPublic}/library/oraclelinux</repository>
