@@ -128,7 +128,7 @@
             <dependency>
                 <groupId>com.github.tomcat-slf4j-logback</groupId>
                 <artifactId>tomcat11-slf4j-logback</artifactId>
-                <version>11.0.26</version>
+                <version>11.0.27</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>
@@ -193,13 +193,13 @@
                     <imageManagement>
                         <image>
                             <repository>${dockerHubPublic}/cafapi/oraclelinux-jre21</repository>
-                            <tag>2.4.3</tag>
-                            <digest>sha256:ada682e87aca9cb0899140a26f9f7bf7fafd44df07a0d6bf9d9bde5727d3a39a</digest>
+                            <tag>2.4.4</tag>
+                            <digest>sha256:a864a141b965aec4ac44b5a5e4191264117cc767026dd190247106352ecdc8c7</digest>
                         </image>
                         <image>
                             <repository>${dockerHubPublic}/cafapi/oraclelinux-jre25</repository>
-                            <tag>2.4.3</tag>
-                            <digest>sha256:3c4bae05c1500090e5d53a697b7ac4e34abe9f4b05bb75d327aa687cacaa8444</digest>
+                            <tag>2.4.4</tag>
+                            <digest>sha256:a33595886f21e1398119613a3339d3f5245889e4bef8e338d38ba9e4e6cee90f</digest>
                         </image>
                         <image>
                             <repository>${dockerHubPublic}/library/oraclelinux</repository>
