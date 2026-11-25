@@ -5,7 +5,6 @@ ${version-number}
 - None
 
 #### Patch Fixes Included
-- This release includes OS package updates only.
-
+- This release includes a Tomcat update to [v11.0.29](https://archive.apache.org/dist/tomcat/tomcat-11/v11.0.29/) and OS package updates only.
 #### Known Issues
 - None
