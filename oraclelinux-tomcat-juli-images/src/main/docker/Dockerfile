@@ -29,13 +29,13 @@ ENV TOMCAT_ROOT_DIR $TOMCAT_PARENT_DIR/$TOMCAT_DIR_NAME
 ENV TOMCAT_CONF_DIR $TOMCAT_ROOT_DIR/conf
 
 # Download, extract Tomcat and remove unwanted web applications
-RUN curl -fsSL -o /wd/apache-tomcat-11.0.27.tar.gz https://archive.apache.org/dist/tomcat/tomcat-11/v11.0.27/bin/apache-tomcat-11.0.27.tar.gz && \
-    echo a617896307cada4884b24f80c4e977ddad8b3e0f88ce0e2a6eea29d5f332498e276ae5976c227a9c8daecf05c7c90def684a3766dd5a81f47a56d8b1adf43dc3 \
-        /wd/apache-tomcat-11.0.27.tar.gz | sha512sum -c - && \
+RUN curl -fsSL -o /wd/apache-tomcat-11.0.29.tar.gz https://archive.apache.org/dist/tomcat/tomcat-11/v11.0.29/bin/apache-tomcat-11.0.29.tar.gz && \
+    echo  be277ce58876a584653f980fd695c82e6708029f05fc7ad9fcfbdcede3836ae6ffa4f858eac26de6ff938f130f31158be8a54b5f546393ea1ad5da0cd202873c \
+        /wd/apache-tomcat-11.0.29.tar.gz | sha512sum -c - && \
     mkdir -p $TOMCAT_PARENT_DIR && \
     cd $TOMCAT_PARENT_DIR && \
-    tar xzf /wd/apache-tomcat-11.0.27.tar.gz && \
-    mv apache-tomcat-11.0.27 $TOMCAT_DIR_NAME && \
+    tar xzf /wd/apache-tomcat-11.0.29.tar.gz && \
+    mv apache-tomcat-11.0.29 $TOMCAT_DIR_NAME && \
     cd $TOMCAT_ROOT_DIR/webapps && \
     rm -rf docs/ examples/ host-manager/ manager/
 
